@@ -2,25 +2,19 @@
 
 
 from datetime import datetime
+from flask import Flask
 
 
-def initialize_metrics_lists() -> None:
-    """Initializes our metrics lists. To be called when the website goes online."""
-    metric_list_traffic: list[datetime] = []
-    metric_list_downloads: list[datetime] = []
+metric_list_traffic: list[datetime] = []
+metric_list_downloads: list[datetime] = []
+
+app = Flask(__name__)
 
 
-# Call this function when someone visits the website
+@app.route("/")
 def traffic_counter() -> None:
-    """A function that records the date and time of the visit to the website in our metrics list for traffic."""
     metric_list_traffic.append(datetime.now())
 
-
-# Call this funcion when someone downloads Cloudify
+@app.route("/") # TODO add URL for download
 def download_counter() -> None:
-    """A function that records the date and time of the download in our metrics list for downloads."""
     metric_list_downloads.append(datetime.now())
-
-
-if __name__ == "__main__":
-    initialize_metrics_lists()
